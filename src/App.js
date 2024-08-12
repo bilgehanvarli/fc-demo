@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { WidgetInstance } from 'friendly-challenge';
+
+// FIXME
+const sitekey = 'CHANGE THIS'
+const placeholderSelectorId = 'friendly-captcha-placeholder'
+
 
 function App() {
+  useEffect(() => {
+    const element = document.querySelector(`.${placeholderSelectorId}`);
+    const options = {
+      language: 'de-DE',
+      startMode: 'auto',
+      sitekey,
+      startedCallback: () => {console.log('started callback')},
+      doneCallback: () => {
+
+      },
+      readyCallback: ()=> {
+        console.log('ready callback')
+      },
+      errorCallback: () => {
+
+      }
+    };
+
+    new WidgetInstance(element, options);
+    
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className={placeholderSelectorId}></div>
     </div>
   );
 }
